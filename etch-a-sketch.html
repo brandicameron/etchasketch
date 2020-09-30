@@ -1,0 +1,209 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Etch A Sketch</title>
+	<meta name="description" content="Super fun time with Etch A Sketch!">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Brandi Cameron | hello@brandicameron.com">
+	<meta property="og:title" content="Shake, shake, shake it up!" />
+	<meta property="og:image" content="https://bc-portfolio.s3.amazonaws.com/etch-a-sketch-share.jpg" />
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#ffc40d">
+	<meta name="theme-color" content="#ffffff">
+	<script src="https://kit.fontawesome.com/24b63fa591.js" crossorigin="anonymous"></script>
+
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: sans-serif;
+		}
+
+		.center {
+			position: relative;
+			width: 100vw;
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.logo {
+			width: 350px;
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			top: -95px;
+			filter: drop-shadow(0px 1px 1px rgba(0 0 0 / 30%)) contrast(1.2);
+		}
+
+		.container {
+			position: relative;
+			width: 40vw;
+			height: 30vw;
+			display: grid;
+			/*			grid-gap: 2px;*/
+			border: 130px solid #dc1212;
+			border-radius: 10px;
+			box-shadow: 15px 20px 50px -20px rgb(34 34 34 / 70%);
+		}
+
+		.block {
+			background: #e5e5e3;
+			width: 100%;
+			height: 100%;
+			transition: 50ms linear;
+		}
+
+		.colorize {
+			background: #333;
+		}
+
+		.knob {
+			position: absolute;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			width: 110px;
+			height: 110px;
+			background: #fff;
+			border-radius: 50%;
+			border: 4px dashed #e8e8e8;
+			box-shadow: 15px 20px 20px -20px rgb(34 34 34 / 50%), inset 0 0 5px rgb(34 34 34 / 10%);
+		}
+
+		.knob-left {
+			left: -112px;
+			bottom: -112px;
+		}
+
+		.knob-right {
+			right: -112px;
+			bottom: -112px;
+		}
+
+		i {
+			font-size: 3rem;
+			color: #acacac;
+		}
+
+		@media screen and (max-width: 1100px) {
+			.container {
+				height: 50vh;
+				width: 50vw;
+				border: 70px solid #e71b1b;
+			}
+
+			.logo {
+				width: 250px;
+				top: -60px;
+			}
+
+			.knob {
+				width: 50px;
+				height: 50px;
+			}
+
+			.knob-left {
+				left: -60px;
+				bottom: -60px;
+			}
+
+			.knob-right {
+				right: -60px;
+				bottom: -60px;
+			}
+
+			i {
+				font-size: 2rem;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+
+	<div class="center">
+		<div class="container">
+			<img src="./img/etch-logo.png" alt="logo" class="logo">
+			<div class="knob knob-left"><i class="fas fa-redo-alt"></i></div>
+			<div class="knob knob-right"></div>
+		</div>
+	</div>
+
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js'></script>
+
+	<script>
+		gsap.registerPlugin(CSSPlugin);
+
+		let gridSize = 50;
+
+		const container = document.querySelector(".container");
+		container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+		container.style.gridTemplateColumnsRows = `repeat(${gridSize}, 1fr)`;
+
+		//create the board
+		for (var i = 0; i < gridSize * gridSize; i++) {
+			let container = document.querySelector('.container');
+			let newBlock = document.createElement('div');
+			newBlock.classList.add('block');
+			container.appendChild(newBlock);
+		}
+
+		//colorize on mouseover
+		let block = document.querySelectorAll(".block");
+
+		block.forEach((box) => {
+			box.addEventListener('mousemove', () => {
+				box.classList.add('colorize');
+			});
+		})
+
+		block.forEach((box) => {
+			box.addEventListener('touchmove', () => {
+				box.classList.add('colorize');
+			});
+		})
+
+
+
+
+		// ANIMATIONS
+
+		document.querySelector(".knob-left").addEventListener('click', resetAndShakeBtn);
+
+		let shake = gsap.to(".container", {
+			rotate: 0.5,
+			x: 15,
+			yoyo: true,
+			duration: 0.05,
+			repeat: 7,
+			ease: "bounce",
+			paused: true //paused so animation doesn't run automatically on page load
+		})
+
+		function resetAndShakeBtn() {
+			shake.restart();
+
+			block.forEach((box) => {
+				box.classList.remove('colorize');
+			})
+		};
+	</script>
+
+
+
+
+</body>
+
+</html>
