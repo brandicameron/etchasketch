@@ -43,25 +43,25 @@
 			left: 50%;
 			transform: translateX(-50%);
 			top: -105px;
-			filter: drop-shadow(0px 1px 1px rgba(0 0 0 / 30%)) contrast(1.3);
+			filter: drop-shadow(0px 1px 1px rgba(0 0 0 / 30%)) contrast(1.1);
 		}
 
 		.container {
 			position: relative;
-			width: 40vw;
-			height: 30vw;
+			width: 50vw;
+			height: 50vh;
 			display: grid;
-			/*			grid-gap: 2px;*/
+/*			grid-gap: 1px;*/
 			border: 130px solid #dc1212;
-			border-radius: 10px;
 			box-shadow: 15px 20px 50px -20px rgb(34 34 34 / 70%);
+			background: #e5e5e3;
 		}
 
 		.block {
 			background: #e5e5e3;
 			width: 100%;
 			height: 100%;
-			transition: 50ms linear;
+			transition: 25ms linear;
 		}
 
 		.colorize {
@@ -79,7 +79,8 @@
 			background: #fff;
 			border-radius: 50%;
 			border: 4px dashed #e8e8e8;
-			box-shadow: 15px 20px 20px -20px rgb(34 34 34 / 50%), inset 0 0 5px rgb(34 34 34 / 10%);
+			box-shadow: 15px 20px 20px -20px rgb(34 34 34 / 50%),
+									inset 0 0 5px rgb(34 34 34 / 10%);
 		}
 
 		.knob-left {
@@ -90,6 +91,9 @@
 		.knob-right {
 			right: -112px;
 			bottom: -112px;
+			color: #acacac;
+			font-size: .85rem;
+			line-height: 100%;
 		}
 
 		i {
@@ -98,10 +102,11 @@
 		}
 
 		@media screen and (max-width: 1100px) {
-			
+
 			.center {
 				height: 85vh;
 			}
+
 			.container {
 				height: 50vh;
 				width: 50vw;
@@ -141,7 +146,9 @@
 	<div class="center">
 		<div class="container">
 			<img src="./img/etch-logo.png" alt="logo" class="logo">
-			<div class="knob knob-left"><i class="fas fa-redo-alt"></i></div>
+			<div class="knob knob-left">
+				<i class="fas fa-redo-alt"></i>
+			</div>
 			<div class="knob knob-right"></div>
 		</div>
 	</div>
@@ -151,7 +158,8 @@
 	<script>
 		gsap.registerPlugin(CSSPlugin);
 
-		let gridSize = 50;
+
+		let gridSize = 32;
 
 		const container = document.querySelector(".container");
 		container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
@@ -181,28 +189,31 @@
 		})
 
 
-
 		// ANIMATIONS
 
 		document.querySelector(".knob-left").addEventListener('click', resetAndShakeBtn);
 
 		let shake = gsap.to(".container", {
 			rotate: 0.5,
-			x: 15,
+			x: 25,
 			yoyo: true,
 			duration: 0.05,
-			repeat: 7,
+			repeat: 5,
 			ease: "bounce",
 			paused: true //paused so animation doesn't run automatically on page load
 		})
 
 		function resetAndShakeBtn() {
 			shake.restart();
-
-			block.forEach((box) => {
+			
+			setTimeout(function() {
+				block.forEach((box) => {
 				box.classList.remove('colorize');
-			})
+			});
+			}, 200);
 		};
+		
+
 	</script>
 
 
