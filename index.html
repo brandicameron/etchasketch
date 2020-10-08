@@ -24,7 +24,6 @@
 			padding: 0;
 			box-sizing: border-box;
 			font-family: sans-serif;
-			overflow: hidden;
 		}
 
 		.center {
@@ -50,22 +49,18 @@
 			position: relative;
 			width: 50vw;
 			height: 50vh;
-			display: grid;
-/*			grid-gap: 1px;*/
-			border: 130px solid #dc1212;
+			max-width: 650px;
+			max-height: 450px;
+			outline: 130px solid #dc1212;
 			box-shadow: 15px 20px 50px -20px rgb(34 34 34 / 70%);
-			background: #e5e5e3;
+			overflow: h
 		}
 
-		.block {
-			background: #e5e5e3;
-			width: 100%;
-			height: 100%;
-			transition: 25ms linear;
-		}
 
-		.colorize {
-			background: #333;
+		.canvas {
+			position: absolute;
+			background: #e5e5e3;
+			z-index: 1000;
 		}
 
 		.knob {
@@ -80,7 +75,8 @@
 			border-radius: 50%;
 			border: 4px dashed #e8e8e8;
 			box-shadow: 15px 20px 20px -20px rgb(34 34 34 / 50%),
-									inset 0 0 5px rgb(34 34 34 / 10%);
+				inset 0 0 5px rgb(34 34 34 / 10%);
+			cursor: pointer;
 		}
 
 		.knob-left {
@@ -91,18 +87,15 @@
 		.knob-right {
 			right: -112px;
 			bottom: -112px;
-			color: #acacac;
-			font-size: .85rem;
-			line-height: 100%;
 		}
 
 		i {
-			font-size: 3rem;
-			color: #acacac;
+			font-size: 2.5rem;
+			color: #cbcbcb;
 		}
 
-		@media screen and (max-width: 1100px) {
 
+		@media screen and (max-width: 1100px) {
 			.center {
 				height: 85vh;
 			}
@@ -110,7 +103,7 @@
 			.container {
 				height: 50vh;
 				width: 50vw;
-				border: 70px solid #e71b1b;
+				outline: 70px solid #e71b1b;
 			}
 
 			.logo {
@@ -144,14 +137,20 @@
 
 
 	<div class="center">
-		<div class="container">
+		<div class="container" id="container">
 			<img src="./img/etch-logo.png" alt="logo" class="logo">
-			<div class="knob knob-left">
+			<div class="knob knob-left" id="reset">
 				<i class="fas fa-redo-alt"></i>
 			</div>
-			<div class="knob knob-right"></div>
+
+			<a class="knob knob-right" id="download">
+				<i class="fas fa-file-download"></i>
+			</a>
+
+			<canvas id="canvas" class="canvas"></canvas>
 		</div>
 	</div>
+
 
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js'></script>
 
@@ -159,43 +158,56 @@
 		gsap.registerPlugin(CSSPlugin);
 
 
-		let gridSize = 32;
+		function createCanvas() {
+			const canvas = document.getElementById('canvas');
+			const ctx = canvas.getContext('2d');
 
-		const container = document.querySelector(".container");
-		container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
-		container.style.gridTemplateColumnsRows = `repeat(${gridSize}, 1fr)`;
-
-		//create the board
-		for (var i = 0; i < gridSize * gridSize; i++) {
-			let container = document.querySelector('.container');
-			let newBlock = document.createElement('div');
-			newBlock.classList.add('block');
-			container.appendChild(newBlock);
-		}
-
-		//colorize on mouseover
-		let block = document.querySelectorAll(".block");
-
-		block.forEach((box) => {
-			box.addEventListener('mousemove', () => {
-				box.classList.add('colorize');
-			});
-		})
-
-		block.forEach((box) => {
-			box.addEventListener('touchmove', () => {
-				box.classList.add('colorize');
-			});
-		})
+			//Sizing the Canvas
+			let container = document.getElementById('container');
+			let canvasSize = container.getBoundingClientRect();
+			canvas.height = canvasSize.height;
+			canvas.width = canvasSize.width;
 
 
-		// ANIMATIONS
+			//Painting
+			let painting = false;
 
-		document.querySelector(".knob-left").addEventListener('click', resetAndShakeBtn);
+			function startDraw(e) {
+				painting = true;
+				draw(e);
+			}
 
+			function endDraw() {
+				painting = false;
+				ctx.beginPath();
+			}
+
+			function draw(e) {
+				if (!painting) return;
+				ctx.lineWidth = 5;
+				ctx.lineCap = 'round';
+				ctx.lineJoin = 'round';
+				ctx.strokeStyle = '#333';
+				ctx.lineTo(e.clientX - canvasSize.left, e.clientY - canvasSize.top);
+				ctx.stroke();
+				ctx.beginPath();
+				ctx.moveTo(e.clientX - canvasSize.left, e.clientY - canvasSize.top);
+			}
+
+			//Event Listeners
+			canvas.addEventListener('mousedown', startDraw);
+			canvas.addEventListener('mouseup', endDraw);
+			canvas.addEventListener('mousemove', draw);
+		};
+
+		window.addEventListener('load', createCanvas);
+
+
+
+		// Animation
 		let shake = gsap.to(".container", {
 			rotate: 0.5,
-			x: 25,
+			x: 15,
 			yoyo: true,
 			duration: 0.05,
 			repeat: 5,
@@ -203,21 +215,65 @@
 			paused: true //paused so animation doesn't run automatically on page load
 		})
 
-		function resetAndShakeBtn() {
+
+		//Reset button
+		const reset = document.getElementById('reset');
+
+		function shakeAndReset() {
 			shake.restart();
-			
-			setTimeout(function() {
-				block.forEach((box) => {
-				box.classList.remove('colorize');
-			});
-			}, 200);
+			location.reload(true);
 		};
-		
 
+		reset.addEventListener('click', shakeAndReset);
+
+
+		//Window resize canvas correction
+		window.addEventListener('resize', () => {
+			location.reload(true);
+		});
+
+		//Download drawing
+		download.addEventListener('click', () => {
+			download.href = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+			download.download = 'etch-a-sketch.png';
+		});
+
+
+
+		// TOUCH
+
+		// Set up touch events for mobile, etc
+		canvas.addEventListener("touchstart", function(e) {
+			mousePos = getTouchPos(canvas, e);
+			var touch = e.touches[0];
+			var mouseEvent = new MouseEvent("mousedown", {
+				clientX: touch.clientX,
+				clientY: touch.clientY
+			});
+			canvas.dispatchEvent(mouseEvent);
+		}, false);
+		canvas.addEventListener("touchend", function(e) {
+			var mouseEvent = new MouseEvent("mouseup", {});
+			canvas.dispatchEvent(mouseEvent);
+		}, false);
+		canvas.addEventListener("touchmove", function(e) {
+			var touch = e.touches[0];
+			var mouseEvent = new MouseEvent("mousemove", {
+				clientX: touch.clientX,
+				clientY: touch.clientY
+			});
+			canvas.dispatchEvent(mouseEvent);
+		}, false);
+
+		// Get the position of a touch relative to the canvas
+		function getTouchPos(canvasDom, touchEvent) {
+			var rect = canvasDom.getBoundingClientRect();
+			return {
+				x: touchEvent.touches[0].clientX - rect.left,
+				y: touchEvent.touches[0].clientY - rect.top
+			};
+		}
 	</script>
-
-
-
 
 </body>
 
