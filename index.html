@@ -219,12 +219,17 @@
 
 		//Reset button
 		const reset = document.getElementById('reset');
-
+	
 		function shakeAndReset() {
 			shake.restart();
-			location.reload(true);
+			
+			setTimeout(function() {
+				location.reload(true);
+			}, 200);
 		};
 
+		
+		
 		reset.addEventListener('click', shakeAndReset);
 
 
@@ -235,7 +240,7 @@
 
 		//Download drawing
 		download.addEventListener('click', () => {
-			download.href = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+			download.href = canvas.toDataURL();
 			download.download = 'etch-a-sketch.png';
 		});
 
@@ -276,23 +281,7 @@
 				y: touchEvent.touches[0].clientY - rect.top
 			};
 		}
-		
-		// Prevent scrolling when touching the canvas
-//		document.body.addEventListener("touchstart", function(e) {
-//			if (e.target == canvas) {
-//				e.preventDefault();
-//			}
-//		}, false);
-//		document.body.addEventListener("touchend", function(e) {
-//			if (e.target == canvas) {
-//				e.preventDefault();
-//			}
-//		}, false);
-//		document.body.addEventListener("touchmove", function(e) {
-//			if (e.target == canvas) {
-//				e.preventDefault();
-//			}
-//		}, false);
+
 	</script>
 
 </body>
