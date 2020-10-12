@@ -109,6 +109,50 @@
 			color: #cbcbcb;
 		}
 
+		.colors {
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			bottom: 25px;
+			display: flex;
+		}
+
+		.color {
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			background: #d4d4d4;
+			margin: 0 3px;
+		}
+		
+		.selected {
+			box-shadow: inset 3px 3px 5px rgba(0 0 0 / 75%);
+		}
+		
+		.black {
+			background: #333;
+		}
+		
+		.red {
+			background: #e21a1a;
+		}
+		
+		.green {
+			background: #3eac1d;
+		}
+		
+		.purple {
+			background: #5928a8;
+		}
+		
+		.blue {
+			background: #3085f8;
+		}
+		
+		.yellow {
+			background: #ffc21e;
+		}
+
 
 		@media screen and (max-width: 1100px) {
 			.center {
@@ -144,12 +188,17 @@
 			i {
 				font-size: 2rem;
 			}
+			
+			.colors {
+			bottom: 125px;
+		}
 		}
 	</style>
 </head>
 
 <body>
 
+<!-- http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/ -->
 
 	<div class="center">
 		<div class="container" id="container">
@@ -166,15 +215,52 @@
 		</div>
 	</div>
 
+	<div class="colors">
+		<div class="color black"></div>
+		<div class="color red"></div>
+		<div class="color green"></div>
+		<div class="color purple"></div>
+		<div class="color blue"></div>
+		<div class="color yellow"></div>
+	</div>
+
 
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js'></script>
 
 	<script>
 		gsap.registerPlugin(CSSPlugin);
 
-
+		const canvas = document.getElementById('canvas');
+		let colorChoice;
+		
+		
+		const black = document.querySelector('.black').addEventListener('click', () => {
+			colorChoice = '#333333';
+		});
+		
+		const red = document.querySelector('.red').addEventListener('click', () => {
+			colorChoice = '#e21a1a';
+		});
+		
+		const green = document.querySelector('.green').addEventListener('click', () => {
+			colorChoice = '#3eac1d';
+		});
+		
+		const purple = document.querySelector('.purple').addEventListener('click', () => {
+			colorChoice = '#5928a8';
+		});
+		
+		const blue = document.querySelector('.blue').addEventListener('click', () => {
+			colorChoice = '#3085f8';
+		});
+		
+		const yellow = document.querySelector('.yellow').addEventListener('click', () => {
+			colorChoice = '#ffc21e';
+		});
+		
+		
 		function createCanvas() {
-			const canvas = document.getElementById('canvas');
+
 			const ctx = canvas.getContext('2d');
 
 			//Sizing the Canvas
@@ -202,7 +288,7 @@
 				ctx.lineWidth = 5;
 				ctx.lineCap = 'round';
 				ctx.lineJoin = 'round';
-				ctx.strokeStyle = '#333';
+				ctx.strokeStyle = colorChoice;
 				ctx.lineTo(e.clientX - canvasSize.left, e.clientY - canvasSize.top);
 				ctx.stroke();
 				ctx.beginPath();
@@ -242,8 +328,6 @@
 			}, 200);
 		};
 
-
-
 		reset.addEventListener('click', shakeAndReset);
 
 
@@ -253,18 +337,16 @@
 		});
 
 		//Download drawing
+		const download = document.getElementById('download');
 		download.addEventListener('click', () => {
 			download.href = canvas.toDataURL();
 			download.download = 'etch-a-sketch.png';
 		});
 
-
-
 		// TOUCH
 
-
-
 		// Set up touch events for mobile, etc
+
 		canvas.addEventListener("touchstart", function(e) {
 			mousePos = getTouchPos(canvas, e);
 			var touch = e.touches[0];
