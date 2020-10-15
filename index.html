@@ -30,7 +30,7 @@
 		.center {
 			position: relative;
 			width: 100vw;
-			height: 100vh;
+			height: 90vh;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
@@ -44,11 +44,6 @@
 			transform: translateX(-50%);
 			top: -105px;
 			filter: drop-shadow(0px 1px 1px rgba(0 0 0 / 30%)) contrast(1.1);
-			-webkit-user-select: none;
-			-khtml-user-select: none;
-			-moz-user-select: none;
-			-o-user-select: none;
-			user-select: none;
 		}
 
 		.container {
@@ -59,23 +54,13 @@
 			max-height: 450px;
 			outline: 130px solid #dc1212;
 			box-shadow: 15px 20px 50px -20px rgb(34 34 34 / 70%);
-			-webkit-user-select: none;
-			-khtml-user-select: none;
-			-moz-user-select: none;
-			-o-user-select: none;
-			user-select: none;
 		}
-
 
 		.canvas {
 			position: absolute;
 			background: #e5e5e3;
 			z-index: 1000;
-			-webkit-user-select: none;
-			-khtml-user-select: none;
-			-moz-user-select: none;
-			-o-user-select: none;
-			user-select: none;
+			cursor: url("./img/pen.svg") 1 35, auto;
 		}
 
 		.knob {
@@ -115,44 +100,66 @@
 			transform: translateX(-50%);
 			bottom: 25px;
 			display: flex;
+			width: 130px;
+			justify-content: space-around;
 		}
 
-		.color {
-			width: 30px;
-			height: 30px;
+		.colors input {
+			position: relative;
+			opacity: 0;
+			cursor: pointer;
+		}
+
+		.color-button {
+			position: relative;
+			width: 20px;
+			height: 20px;
 			border-radius: 50%;
 			background: #d4d4d4;
-			margin: 0 3px;
+			top: 0px;
+			margin-left: -23px;
+			z-index: -1;
+			cursor: pointer;
 		}
-		
-		.selected {
-			box-shadow: inset 3px 3px 5px rgba(0 0 0 / 75%);
+	
+		[type="radio"]:checked + span {
+			box-shadow: inset 3px 2px 3px rgba(0 0 0 / 60%);
 		}
-		
-		.black {
-			background: #333;
-		}
-		
+
 		.red {
 			background: #e21a1a;
 		}
-		
+
 		.green {
 			background: #3eac1d;
 		}
-		
+
 		.purple {
 			background: #5928a8;
 		}
-		
+
 		.blue {
 			background: #3085f8;
 		}
-		
+
 		.yellow {
 			background: #ffc21e;
 		}
+		
+		.orange {
+			background: #fd6607;
+		}
 
+		.screen-reader-only {
+			position: absolute;
+			height: 1px;
+			width: 1px;
+			clip: rect(1px 1px 1px 1px);
+			clip: rect(1px, 1px, 1px, 1px);
+			clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
+			-webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
+			overflow: hidden !important;
+		}
 
 		@media screen and (max-width: 1100px) {
 			.center {
@@ -188,17 +195,17 @@
 			i {
 				font-size: 2rem;
 			}
-			
+
 			.colors {
-			bottom: 125px;
-		}
+				bottom: 125px;
+			}
 		}
 	</style>
 </head>
 
 <body>
 
-<!-- http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/ -->
+	<!-- http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/ -->
 
 	<div class="center">
 		<div class="container" id="container">
@@ -206,61 +213,44 @@
 			<div class="knob knob-left" id="reset">
 				<i class="fas fa-redo-alt"></i>
 			</div>
-
 			<a class="knob knob-right" id="download">
 				<i class="fas fa-file-download"></i>
 			</a>
-
 			<canvas id="canvas" class="canvas"></canvas>
 		</div>
 	</div>
 
 	<div class="colors">
-		<div class="color black"></div>
-		<div class="color red"></div>
-		<div class="color green"></div>
-		<div class="color purple"></div>
-		<div class="color blue"></div>
-		<div class="color yellow"></div>
+		<input type="radio" name="colors" id="red" value="#e21a1a">
+		<span class="color-button red"></span>
+		<label for="red" class="screen-reader-only">Red</label>
+		<input type="radio" name="colors" id="green" value="#3eac1d">
+		<span class="color-button green"></span>
+		<label for="green" class="screen-reader-only">Green</label>
+		<input type="radio" name="colors" id="purple" value="#5928a8">
+		<span class="color-button purple"></span>
+		<label for="purple" class="screen-reader-only">Purple</label>
+		<input type="radio" name="colors" id="blue" value="#3085f8">
+		<span class="color-button blue"></span>
+		<label for="blue" class="screen-reader-only">Blue</label>
+		<input type="radio" name="colors" id="yellow" value="#ffc21e">
+		<span class="color-button yellow"></span>
+		<label for="yellow" class="screen-reader-only">Yellow</label>
+		<input type="radio" name="colors" id="orange" value="#fd6607">
+		<span class="color-button orange"></span>
+		<label for="orange" class="screen-reader-only">orange</label>
 	</div>
-
 
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js'></script>
 
 	<script>
 		gsap.registerPlugin(CSSPlugin);
-
+		
+		
+		// CREATE CANVAS
 		const canvas = document.getElementById('canvas');
-		let colorChoice;
-		
-		
-		const black = document.querySelector('.black').addEventListener('click', () => {
-			colorChoice = '#333333';
-		});
-		
-		const red = document.querySelector('.red').addEventListener('click', () => {
-			colorChoice = '#e21a1a';
-		});
-		
-		const green = document.querySelector('.green').addEventListener('click', () => {
-			colorChoice = '#3eac1d';
-		});
-		
-		const purple = document.querySelector('.purple').addEventListener('click', () => {
-			colorChoice = '#5928a8';
-		});
-		
-		const blue = document.querySelector('.blue').addEventListener('click', () => {
-			colorChoice = '#3085f8';
-		});
-		
-		const yellow = document.querySelector('.yellow').addEventListener('click', () => {
-			colorChoice = '#ffc21e';
-		});
-		
-		
-		function createCanvas() {
 
+		function createCanvas() {
 			const ctx = canvas.getContext('2d');
 
 			//Sizing the Canvas
@@ -268,7 +258,6 @@
 			let canvasSize = container.getBoundingClientRect();
 			canvas.height = canvasSize.height;
 			canvas.width = canvasSize.width;
-
 
 			//Painting
 			let painting = false;
@@ -294,8 +283,7 @@
 				ctx.beginPath();
 				ctx.moveTo(e.clientX - canvasSize.left, e.clientY - canvasSize.top);
 			}
-
-			//Event Listeners
+			
 			canvas.addEventListener('mousedown', startDraw);
 			canvas.addEventListener('mouseup', endDraw);
 			canvas.addEventListener('mousemove', draw);
@@ -303,9 +291,23 @@
 
 		window.addEventListener('load', createCanvas);
 
+		
+		
+		// CHANGE PEN COLOR
+		const colorButtons = document.querySelectorAll('input');
+		let colorChoice;
+
+		function changePenColor(btn) {
+			colorChoice = btn.target.value;
+		};
+
+		colorButtons.forEach((item) => {
+			item.addEventListener('change', changePenColor);
+		});
 
 
-		// Animation
+		
+		// SHAKE ANIMATION
 		let shake = gsap.to(".container", {
 			rotate: 0.5,
 			x: 15,
@@ -317,12 +319,11 @@
 		})
 
 
-		//Reset button
+		// RESET CANVAS
 		const reset = document.getElementById('reset');
 
 		function shakeAndReset() {
 			shake.restart();
-
 			setTimeout(function() {
 				location.reload(true);
 			}, 200);
@@ -336,17 +337,19 @@
 			location.reload(true);
 		});
 
-		//Download drawing
+		
+		
+		// DOWNLOAD IMAGE OF DRAWING
 		const download = document.getElementById('download');
 		download.addEventListener('click', () => {
 			download.href = canvas.toDataURL();
 			download.download = 'etch-a-sketch.png';
 		});
 
+
+		
 		// TOUCH
-
 		// Set up touch events for mobile, etc
-
 		canvas.addEventListener("touchstart", function(e) {
 			mousePos = getTouchPos(canvas, e);
 			var touch = e.touches[0];
