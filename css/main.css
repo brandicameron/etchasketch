@@ -23,6 +23,9 @@ body {
   width: clamp(250px, 70vw, 650px);
   height: clamp(315px, 70vh, 450px);
   outline: 110px solid #dc1212;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 
@@ -33,6 +36,9 @@ body {
   transform: translateX(-50%);
   top: -95px;
   filter: drop-shadow(0px 1px 1px rgba(0 0 0 / 30%)) contrast(1.1);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 
