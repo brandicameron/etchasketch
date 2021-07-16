@@ -12,6 +12,10 @@ function createCanvas() {
   canvas.height = canvasSize.height;
   canvas.width = canvasSize.width;
 
+  //Fill Background Color - set here instead of CSS so that downloaded image includes bg color, important for if anything had been erased
+  ctx.fillStyle = '#e5e5e3';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
   //Painting
   let painting = false;
 

@@ -43,6 +43,7 @@ body {
 }
 
 .canvas {
+  /* background: #412f1e; */
   background: #e5e5e3;
   z-index: 1000;
   width: 100%;
@@ -95,7 +96,7 @@ i {
   top: 140px;
   display: flex;
   justify-content: space-between;
-  width: 340px;
+  width: 375px;
   z-index: 1000;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -134,7 +135,11 @@ input[type='radio']:checked + .color-button {
 }
 
 .black {
-  background: #3d3d3d;
+  background: #353535;
+}
+
+.brown {
+  background: #58412d;
 }
 
 .red {
