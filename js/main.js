@@ -27,7 +27,16 @@ function createCanvas() {
 
   function draw(e) {
     if (!painting) return;
-    ctx.lineWidth = 5;
+    //
+
+    const eraser = document.querySelector('#erase');
+
+    if (eraser.checked === true) {
+      ctx.lineWidth = 20;
+    } else {
+      ctx.lineWidth = 5;
+    }
+    // ctx.lineWidth = 5;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.strokeStyle = colorChoice;
