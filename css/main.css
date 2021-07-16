@@ -9,25 +9,31 @@ body {
   overflow: hidden;
 }
 
-.logo {
-  width: 350px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: -105px;
-  filter: drop-shadow(0px 1px 1px rgba(0 0 0 / 30%)) contrast(1.1);
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.container {
-  position: absolute;
-  top: 48%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
+.etchasketch {
+  position: relative;
   width: clamp(250px, 70vw, 650px);
   height: clamp(315px, 70vh, 450px);
-  outline: 130px solid #dc1212;
-  /* user-select: none; */
+  outline: 110px solid #dc1212;
+  user-select: none;
+}
+
+.logo {
+  position: absolute;
+  width: 350px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -95px;
+  filter: drop-shadow(0px 1px 1px rgba(0 0 0 / 30%)) contrast(1.1);
+  user-select: none;
 }
 
 .canvas {
@@ -44,24 +50,23 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 110px;
-  height: 110px;
+  width: 100px;
+  height: 100px;
   background: #fff;
   border-radius: 50%;
   border: 4px dashed #e8e8e8;
   box-shadow: 15px 20px 20px -20px rgb(34 34 34 / 50%),
     inset 0 0 5px rgb(34 34 34 / 10%);
   cursor: pointer;
+  bottom: -95px;
 }
 
 .knob-left {
-  left: -112px;
-  bottom: -112px;
+  left: -95px;
 }
 
 .knob-right {
-  right: -112px;
-  bottom: -112px;
+  right: -95px;
 }
 
 i {
@@ -71,31 +76,36 @@ i {
 
 .colors {
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 150px;
+  top: 140px;
   display: flex;
-  width: 350px;
-  /* justify-content: center; */
+  justify-content: space-between;
+  width: 300px;
   z-index: 1000;
 }
 
-.colors input {
-  position: relative;
+input[type='radio'] {
   opacity: 0;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
 }
 
 .color-button {
+  display: block;
+  position: absolute;
+  top: 0px;
   width: 40px;
-  height: 37px;
+  height: 40px;
   border-radius: 50%;
   background: #d4d4d4;
-  z-index: -1;
   cursor: pointer;
 }
 
-[type='radio']:checked + span {
+.color-button:active {
+  transform: scale(0.95);
+}
+
+input[type='radio']:checked + .color-button {
   box-shadow: inset 3px 2px 3px rgba(0 0 0 / 70%);
 }
 
@@ -127,19 +137,8 @@ i {
   background: #fd6607;
 }
 
-.screen-reader-only {
-  position: absolute;
-  height: 1px;
-  width: 1px;
-  clip: rect(1px 1px 1px 1px);
-  clip: rect(1px, 1px, 1px, 1px);
-  clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
-  -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
-  overflow: hidden !important;
-}
-
 @media screen and (max-width: 1100px) {
-  .container {
+  .etchasketch {
     outline: 70px solid #dc1212;
   }
 
@@ -174,8 +173,11 @@ i {
 
 @media screen and (max-width: 400px) {
   .container {
-    top: 40%;
+    height: 90vh;
+  }
+  .etchasketch {
     outline: 55px solid #dc1212;
+    width: clamp(220px, 40vw, 650px);
   }
 
   .logo {

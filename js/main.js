@@ -7,7 +7,7 @@ function createCanvas() {
   const ctx = canvas.getContext('2d');
 
   //Sizing the canvas
-  let container = document.getElementById('container');
+  let container = document.querySelector('.etchasketch');
   let canvasSize = container.getBoundingClientRect();
   canvas.height = canvasSize.height;
   canvas.width = canvasSize.width;
@@ -48,26 +48,23 @@ window.addEventListener('load', createCanvas);
 const colorButtons = document.querySelectorAll('input');
 let colorChoice;
 
-function changePenColor(btn) {
-  colorChoice = btn.target.value;
+function changePenColor(e) {
+  console.log(`${e.target.value} was clicked!`);
+  colorChoice = e.target.value;
 }
-
-// colorButtons.forEach((btn) => {
-//   btn.addEventListener('change', changePenColor)
-// })
 
 colorButtons.forEach((btn) => {
   btn.addEventListener('click', changePenColor);
 });
 
 // SHAKE ANIMATION
-let shake = gsap.to('.container', {
+let shake = gsap.to('.etchasketch', {
   rotate: 0.5,
   x: 15,
   yoyo: true,
   duration: 0.05,
-  repeat: 5,
-  ease: 'bounce',
+  repeat: 8,
+  ease: 'back',
   paused: true, //paused so animation doesn't run automatically on page load
 });
 

@@ -29,37 +29,80 @@
     <!-- http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/ -->
 
     <div class="container" id="container">
-      <img src="./img/etch-logo.png" alt="logo" class="logo" />
-      <div class="knob knob-left" id="reset">
-        <i class="fas fa-redo-alt"></i>
+      <div class="etchasketch">
+        <img src="./img/etch-logo.png" alt="logo" class="logo" />
+        <div class="knob knob-left" id="reset">
+          <i class="fas fa-redo-alt"></i>
+        </div>
+        <a class="knob knob-right" id="download">
+          <i class="fas fa-file-download"></i>
+        </a>
+        <canvas id="canvas" class="canvas"></canvas>
       </div>
-      <a class="knob knob-right" id="download">
-        <i class="fas fa-file-download"></i>
-      </a>
-      <canvas id="canvas" class="canvas"></canvas>
 
       <div class="colors">
-        <input type="radio" name="colors" id="black" value="#000000" checked />
-        <span class="color-button black"></span>
-        <label for="black" class="screen-reader-only">Black</label>
-        <input type="radio" name="colors" id="red" value="#e21a1a" />
-        <span class="color-button red"></span>
-        <label for="red" class="screen-reader-only">Red</label>
-        <input type="radio" name="colors" id="green" value="#3eac1d" />
-        <span class="color-button green"></span>
-        <label for="green" class="screen-reader-only">Green</label>
-        <input type="radio" name="colors" id="purple" value="#5928a8" />
-        <span class="color-button purple"></span>
-        <label for="purple" class="screen-reader-only">Purple</label>
-        <input type="radio" name="colors" id="blue" value="#3085f8" />
-        <span class="color-button blue"></span>
-        <label for="blue" class="screen-reader-only">Blue</label>
-        <input type="radio" name="colors" id="yellow" value="#ffc21e" />
-        <span class="color-button yellow"></span>
-        <label for="yellow" class="screen-reader-only">Yellow</label>
-        <input type="radio" name="colors" id="orange" value="#fd6607" />
-        <span class="color-button orange"></span>
-        <label for="orange" class="screen-reader-only">Orange</label>
+        <div>
+          <input
+            type="radio"
+            name="colors"
+            id="black"
+            value="#000000"
+            checked
+          />
+          <label
+            for="black"
+            class="color-button black"
+            aria-label="Change Color to Black"
+          ></label>
+        </div>
+        <div>
+          <input type="radio" name="colors" id="red" value="#e21a1a" />
+          <label
+            for="red"
+            class="color-button red"
+            aria-label="Change Color to Red"
+          ></label>
+        </div>
+        <div>
+          <input type="radio" name="colors" id="green" value="#3eac1d" />
+          <label
+            for="green"
+            class="color-button green"
+            aria-label="Change Color to Green"
+          ></label>
+        </div>
+        <div>
+          <input type="radio" name="colors" id="purple" value="#5928a8" />
+          <label
+            for="purple"
+            class="color-button purple"
+            aria-label="Change Color to Purple"
+          ></label>
+        </div>
+        <div>
+          <input type="radio" name="colors" id="blue" value="#3085f8" />
+          <label
+            for="blue"
+            class="color-button blue"
+            aria-label="Change Color to Blue"
+          ></label>
+        </div>
+        <div>
+          <input type="radio" name="colors" id="yellow" value="#ffc21e" />
+          <label
+            for="yellow"
+            class="color-button yellow"
+            aria-label="Change Color to Yellow"
+          ></label>
+        </div>
+        <div>
+          <input type="radio" name="colors" id="orange" value="#fd6607" />
+          <label
+            for="orange"
+            class="color-button orange"
+            aria-label="Change Color to Orange"
+          ></label>
+        </div>
       </div>
     </div>
 
