@@ -138,8 +138,13 @@ input[type='radio']:checked + .color-button {
 }
 
 @media screen and (max-width: 1100px) {
+  .container {
+    height: 95vh;
+  }
+
   .etchasketch {
     outline: 70px solid #dc1212;
+    height: clamp(315px, 60vh, 450px);
   }
 
   .logo {
