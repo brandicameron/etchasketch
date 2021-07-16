@@ -5,10 +5,7 @@
 }
 
 body {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
   overflow: hidden;
 }
 
@@ -30,6 +27,7 @@ body {
   width: clamp(250px, 70vw, 650px);
   height: clamp(315px, 70vh, 450px);
   outline: 130px solid #dc1212;
+  /* user-select: none; */
 }
 
 .canvas {
@@ -77,8 +75,8 @@ i {
   transform: translateX(-50%);
   top: 150px;
   display: flex;
-  width: 175px;
-  justify-content: space-around;
+  width: 350px;
+  /* justify-content: center; */
   z-index: 1000;
 }
 
@@ -89,13 +87,10 @@ i {
 }
 
 .color-button {
-  position: relative;
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 37px;
   border-radius: 50%;
   background: #d4d4d4;
-  top: 0px;
-  margin-left: -23px;
   z-index: -1;
   cursor: pointer;
 }
