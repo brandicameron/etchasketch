@@ -139,12 +139,12 @@ input[type='radio']:checked + .color-button {
 
 @media screen and (max-width: 1100px) {
   .container {
-    height: 95vh;
+    height: 90vh;
   }
 
   .etchasketch {
     outline: 70px solid #dc1212;
-    height: clamp(315px, 60vh, 450px);
+    height: clamp(315px, 55vh, 450px);
   }
 
   .logo {
