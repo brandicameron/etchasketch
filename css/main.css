@@ -97,6 +97,10 @@ i {
   justify-content: space-between;
   width: 340px;
   z-index: 1000;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 input[type='radio'] {
@@ -115,6 +119,10 @@ input[type='radio'] {
   border-radius: 50%;
   background: #d4d4d4;
   cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .color-button:active {
