@@ -31,16 +31,14 @@ function createCanvas() {
 
   function draw(e) {
     if (!painting) return;
-    //
 
     const eraser = document.querySelector('#erase');
-
+    // Set pen & eraser size
     if (eraser.checked === true) {
-      ctx.lineWidth = 20;
+      ctx.lineWidth = parseInt(penSize.value) + 5;
     } else {
-      ctx.lineWidth = 5;
+      ctx.lineWidth = parseInt(penSize.value);
     }
-    // ctx.lineWidth = 5;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.strokeStyle = colorChoice;
@@ -58,17 +56,31 @@ function createCanvas() {
 window.addEventListener('load', createCanvas);
 
 // CHANGE PEN COLOR
-const colorButtons = document.querySelectorAll('input');
+const colorButtons = document.querySelectorAll('input[type=radio]');
 let colorChoice;
 
 function changePenColor(e) {
-  console.log(`${e.target.value} was clicked!`);
   colorChoice = e.target.value;
 }
 
 colorButtons.forEach((btn) => {
   btn.addEventListener('click', changePenColor);
 });
+
+// CHANGE PEN SIZE
+// https://codepen.io/onyx1812/pen/GRJxmva?editors=0010
+const penSize = document.getElementById('penSize'),
+  rangeValue = document.getElementById('rangeValue'),
+  setValue = () => {
+    const newValue = Number(
+        ((penSize.value - penSize.min) * 100) / (penSize.max - penSize.min)
+      ),
+      newPosition = 14 - newValue * 0.27;
+    rangeValue.innerHTML = `<span>Pen Size: ${penSize.value}</span>`;
+    rangeValue.style.left = `calc(${newValue}% + (${newPosition}px))`;
+  };
+document.addEventListener('DOMContentLoaded', setValue);
+penSize.addEventListener('input', setValue);
 
 // SHAKE ANIMATION
 let shake = gsap.to('.etchasketch', {
