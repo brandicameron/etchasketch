@@ -1,9 +1,6 @@
-gsap.registerPlugin(CSSPlugin);
-
-//Create the canvas
+// Create the canvas
 const canvas = document.getElementById('canvas');
-
-function createCanvas() {
+(function createCanvas() {
   const ctx = canvas.getContext('2d');
 
   //Sizing the canvas
@@ -51,38 +48,39 @@ function createCanvas() {
   canvas.addEventListener('mousedown', startDraw);
   canvas.addEventListener('mouseup', endDraw);
   canvas.addEventListener('mousemove', draw);
-}
+})();
 
-window.addEventListener('load', createCanvas);
-
-// CHANGE PEN COLOR
+// Change pen color
 const colorButtons = document.querySelectorAll('input[type=radio]');
 let colorChoice;
 
 function changePenColor(e) {
   colorChoice = e.target.value;
+  dotSize.style.backgroundColor = colorChoice;
 }
 
 colorButtons.forEach((btn) => {
   btn.addEventListener('click', changePenColor);
 });
 
-// CHANGE PEN SIZE
+// Change pen size
 // https://codepen.io/onyx1812/pen/GRJxmva?editors=0010
-const penSize = document.getElementById('penSize'),
-  rangeValue = document.getElementById('rangeValue'),
-  setValue = () => {
-    const newValue = Number(
-        ((penSize.value - penSize.min) * 100) / (penSize.max - penSize.min)
-      ),
-      newPosition = 14 - newValue * 0.27;
-    rangeValue.innerHTML = `<span>Pen Size: ${penSize.value}</span>`;
-    rangeValue.style.left = `calc(${newValue}% + (${newPosition}px))`;
-  };
-document.addEventListener('DOMContentLoaded', setValue);
+const penSize = document.getElementById('penSize');
+const dotSize = document.querySelector('.dot-size');
+const rangeValue = document.getElementById('rangeValue');
+
+(setValue = () => {
+  const newValue = Number(
+    ((penSize.value - penSize.min) * 100) / (penSize.max - penSize.min)
+  );
+  dotSize.style.width = penSize.value + 'px';
+  dotSize.style.height = penSize.value + 'px';
+  rangeValue.style.left = `${newValue}%`;
+})();
+
 penSize.addEventListener('input', setValue);
 
-// SHAKE ANIMATION
+// Shake animation
 let shake = gsap.to('.etchasketch', {
   rotate: 0.5,
   x: 15,
@@ -93,9 +91,7 @@ let shake = gsap.to('.etchasketch', {
   paused: true, //paused so animation doesn't run automatically on page load
 });
 
-// RESET CANVAS
-const reset = document.getElementById('reset');
-
+// Reset canvas
 function shakeAndReset() {
   shake.restart();
   setTimeout(function () {
@@ -103,22 +99,22 @@ function shakeAndReset() {
   }, 200);
 }
 
+const reset = document.getElementById('reset');
 reset.addEventListener('click', shakeAndReset);
 
-//Window resize canvas correction
+// Window resize canvas correction
 window.addEventListener('resize', () => {
   location.reload(true);
 });
 
-// DOWNLOAD IMAGE OF DRAWING
+// Download image of drawing
 const download = document.getElementById('download');
 download.addEventListener('click', () => {
   download.href = canvas.toDataURL();
   download.download = 'etch-a-sketch.png';
 });
 
-// TOUCH
-// Set up touch events for mobile, etc
+// Touch events
 canvas.addEventListener(
   'touchstart',
   function (e) {
