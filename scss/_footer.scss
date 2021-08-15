@@ -1,0 +1,25 @@
+footer {
+  @extend .flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100vw;
+  height: 225px;
+  padding: 50px;
+  background-color: $etch-a-sketch-red;
+  line-height: 150%;
+}
+
+.contact-buttons {
+  @extend .flex;
+  width: 350px;
+}
+
+.icon {
+  width: 30px;
+  margin: 0 10px;
+  transition: transform 100ms;
+}
+
+.icon:hover {
+  transform: scale(1.05);
+}

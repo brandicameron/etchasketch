@@ -159,3 +159,32 @@ function getTouchPos(canvasDom, touchEvent) {
     y: touchEvent.touches[0].clientY - rect.top,
   };
 }
+
+// Prevent page from scrolling/jumping when drawing on canvas
+document.body.addEventListener(
+  'touchstart',
+  function (e) {
+    if (e.target === canvas) {
+      document.body.style.overflow = 'hidden';
+    }
+  },
+  false
+);
+document.body.addEventListener(
+  'touchend',
+  function (e) {
+    if (e.target === canvas) {
+      document.body.style.overflow = 'hidden';
+    }
+  },
+  false
+);
+document.body.addEventListener(
+  'touchmove',
+  function (e) {
+    if (e.target === canvas) {
+      document.body.style.overflow = 'hidden';
+    }
+  },
+  false
+);

@@ -1,0 +1,68 @@
+.color-picker {
+  position: relative;
+  top: 140px;
+  @extend .flex;
+  justify-content: space-between;
+  width: 375px;
+}
+
+input[type='radio'] {
+  width: $radio-width;
+  height: $radio-height;
+  cursor: pointer;
+}
+
+.color-button {
+  display: block;
+  position: absolute;
+  top: 0px;
+  width: $radio-width;
+  height: $radio-height;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+}
+
+.color-button:active {
+  transform: scale(0.95);
+}
+
+input[type='radio']:checked + .color-button {
+  box-shadow: inset 3px 2px 3px rgba(0, 0, 0, 0.7);
+}
+
+.black {
+  background: #353535;
+}
+
+.brown {
+  background: #58412d;
+}
+
+.red {
+  background: #e21a1a;
+}
+
+.green {
+  background: #3eac1d;
+}
+
+.purple {
+  background: #5928a8;
+}
+
+.blue {
+  background: #3085f8;
+}
+
+.yellow {
+  background: #ffc21e;
+}
+
+.orange {
+  background: #fd6607;
+}
+
+.erase {
+  background: #d4d4d4;
+}
