@@ -5,12 +5,10 @@
 
  Developer: Brandi Cameron
  Contact: hello@brandicameron.com
+ Github: https://github.com/brandicameron
+ Twitter: https://twitter.com/BrandiLCameron
 
-# THANKS
-
-Stack Overflow
 
 # TECHNOLOGY COLOPHON
 
-    CSS3, HTML5, JavaScript
-    Apache Server Configs, jQuery, Modernizr, Normalize.css
+  HTML5, Sass, JavaScript, GSAP

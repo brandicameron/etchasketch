@@ -3,12 +3,12 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Etch A Sketch</title>
-  <meta name="description" content="Super fun time with Etch A Sketch!" />
+  <title>Etch-a-Sketch</title>
+  <meta name="description" content="Fun times with Etch A Sketch!" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="Brandi Cameron | hello@brandicameron.com" />
   <meta property="og:title" content="Shake, shake, shake it up!" />
-  <meta property="og:image" content="https://bc-portfolio.s3.amazonaws.com/etch-a-sketch-share.jpg" />
+  <meta property="og:image" content="img/share.jpg" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -21,64 +21,65 @@
 </head>
 
 <body>
-  <!-- http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/ -->
-
-  <div class="container" id="container">
+  <main class="container">
     <div class="etchasketch">
       <img src="./img/etch-logo.png" alt="logo" class="logo" />
-      <div class="knob knob-left" id="reset">
+      <button class="knob knob-left" id="reset" aria-label="Erase the board and start over.">
         <i class="fas fa-redo-alt"></i>
-      </div>
+      </button>
       <div class="range-container">
-        <div class="range-value" id="rangeValue"><span class="dot-size"></span></div>
-        <input type="range" id="penSize" name="penSize" min="2" max="18" value="10" />
-        <label for="penSize" aria-label="Slide to change pen output size."></label>
+        <label for="pen-size" class="range-value" id="rangeValue">
+          <span class="dot-size">
+          </span>
+        </label>
+        <input type="range" id="pen-size" name="pen-size" min="3" max="27" value="15"
+          aria-label="Slide to change pen tip diameter in pixels." />
       </div>
-      <a class="knob knob-right" id="download">
+      <button class="knob knob-right" id="download" aria-label="Download an image of your drawing.">
         <i class="fas fa-file-download"></i>
-      </a>
+      </button>
       <canvas id="canvas" class="canvas"></canvas>
     </div>
 
-    <div class="colors">
+    <div class="color-picker">
       <div>
-        <input type="radio" name="colors" id="black" value="#000000" checked />
-        <label for="black" class="color-button black" aria-label="Change Color to Black"></label>
+        <input type="radio" name="colors" id="black" value="#000000" checked aria-label="Pen Color Black" />
+        <label for="black" class="color-button black"></label>
       </div>
       <div>
-        <input type="radio" name="colors" id="brown" value="#58412d" />
-        <label for="brown" class="color-button brown" aria-label="Change Color to Brown"></label>
+        <input type="radio" name="colors" id="brown" value="#58412d" aria-label="Pen Color Brown" />
+        <label for="brown" class="color-button brown"></label>
       </div>
       <div>
-        <input type="radio" name="colors" id="red" value="#e21a1a" />
-        <label for="red" class="color-button red" aria-label="Change Color to Red"></label>
+        <input type="radio" name="colors" id="red" value="#e21a1a" aria-label="Pen Color Red" />
+        <label for="red" class="color-button red"></label>
       </div>
       <div>
-        <input type="radio" name="colors" id="green" value="#3eac1d" />
-        <label for="green" class="color-button green" aria-label="Change Color to Green"></label>
+        <input type="radio" name="colors" id="green" value="#3eac1d" aria-label="Pen Color Green" />
+        <label for="green" class="color-button green"></label>
       </div>
       <div>
-        <input type="radio" name="colors" id="purple" value="#5928a8" />
-        <label for="purple" class="color-button purple" aria-label="Change Color to Purple"></label>
+        <input type="radio" name="colors" id="purple" value="#5928a8" aria-label="Pen Color Purple" />
+        <label for="purple" class="color-button purple"></label>
       </div>
       <div>
-        <input type="radio" name="colors" id="blue" value="#3085f8" />
-        <label for="blue" class="color-button blue" aria-label="Change Color to Blue"></label>
+        <input type="radio" name="colors" id="blue" value="#3085f8" aria-label="Pen Color Blue" />
+        <label for="blue" class="color-button blue"></label>
       </div>
       <div>
-        <input type="radio" name="colors" id="yellow" value="#ffc21e" />
-        <label for="yellow" class="color-button yellow" aria-label="Change Color to Yellow"></label>
+        <input type="radio" name="colors" id="yellow" value="#ffc21e" aria-label="Pen Color Yellow" />
+        <label for="yellow" class="color-button yellow"></label>
       </div>
       <div>
-        <input type="radio" name="colors" id="orange" value="#fd6607" />
-        <label for="orange" class="color-button orange" aria-label="Change Color to Orange"></label>
+        <input type="radio" name="colors" id="orange" value="#fd6607" aria-label="Pen Color Orange" />
+        <label for="orange" class="color-button orange"></label>
       </div>
       <div>
-        <input type="radio" name="colors" id="erase" value="#e5e5e3" />
-        <label for="erase" class="color-button erase" aria-label="Erase"><i class="fas fa-eraser"></i></label>
+        <input type="radio" name="colors" id="erase" value="#e5e5e3" aria-label="Eraser" />
+        <label for="erase" class="color-button erase"><i class="fas fa-eraser"></i></label>
       </div>
     </div>
-  </div>
+  </main>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
   <script src="js/main.js"></script>

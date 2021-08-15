@@ -1,41 +1,42 @@
-// Create the canvas
+// Create the canvas : https://tinyurl.com/796yzmdc
 const canvas = document.getElementById('canvas');
 (function createCanvas() {
   const ctx = canvas.getContext('2d');
 
-  //Sizing the canvas
+  //Size the canvas
   let container = document.querySelector('.etchasketch');
   let canvasSize = container.getBoundingClientRect();
   canvas.height = canvasSize.height;
   canvas.width = canvasSize.width;
-
-  //Fill Background Color - set here instead of CSS so that downloaded image includes bg color, important for if anything had been erased
+  /* 
+  Fill Background Color - set here instead of CSS so that downloaded 
+  image includes bg color, important for if anything has been erased
+  */
   ctx.fillStyle = '#e5e5e3';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  //Painting
-  let painting = false;
+  // Drawing
+  let drawing = false;
 
   function startDraw(e) {
-    painting = true;
+    drawing = true;
     draw(e);
   }
 
   function endDraw() {
-    painting = false;
+    drawing = false;
     ctx.beginPath();
   }
 
   function draw(e) {
-    if (!painting) return;
-
     const eraser = document.querySelector('#erase');
-    // Set pen & eraser size
-    if (eraser.checked === true) {
-      ctx.lineWidth = parseInt(penSize.value) + 5;
-    } else {
-      ctx.lineWidth = parseInt(penSize.value);
-    }
+
+    if (!drawing) return;
+
+    eraser.checked
+      ? (ctx.lineWidth = parseInt(penSize.value) + 5)
+      : (ctx.lineWidth = parseInt(penSize.value));
+
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.strokeStyle = colorChoice;
@@ -63,22 +64,23 @@ colorButtons.forEach((btn) => {
   btn.addEventListener('click', changePenColor);
 });
 
-// Change pen size
-// https://codepen.io/onyx1812/pen/GRJxmva?editors=0010
-const penSize = document.getElementById('penSize');
+// Change pen size : https://tinyurl.com/2en76hnv
+const penSize = document.getElementById('pen-size');
 const dotSize = document.querySelector('.dot-size');
-const rangeValue = document.getElementById('rangeValue');
 
-(setValue = () => {
-  const newValue = Number(
+function setPenSize() {
+  const rangeThumb = document.getElementById('rangeValue');
+  const newValue = parseInt(
     ((penSize.value - penSize.min) * 100) / (penSize.max - penSize.min)
   );
+
   dotSize.style.width = penSize.value + 'px';
   dotSize.style.height = penSize.value + 'px';
-  rangeValue.style.left = `${newValue}%`;
-})();
+  rangeThumb.style.left = `${newValue}%`;
+}
 
-penSize.addEventListener('input', setValue);
+setPenSize();
+penSize.addEventListener('input', setPenSize);
 
 // Shake animation
 let shake = gsap.to('.etchasketch', {
@@ -88,14 +90,14 @@ let shake = gsap.to('.etchasketch', {
   duration: 0.05,
   repeat: 8,
   ease: 'back',
-  paused: true, //paused so animation doesn't run automatically on page load
+  paused: true, //prevents animation from running on page load
 });
 
 // Reset canvas
 function shakeAndReset() {
   shake.restart();
   setTimeout(function () {
-    location.reload(true);
+    location.reload();
   }, 200);
 }
 
@@ -104,7 +106,7 @@ reset.addEventListener('click', shakeAndReset);
 
 // Window resize canvas correction
 window.addEventListener('resize', () => {
-  location.reload(true);
+  location.reload();
 });
 
 // Download image of drawing
