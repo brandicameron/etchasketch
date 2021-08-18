@@ -1,4 +1,4 @@
-// Create the canvas : https://tinyurl.com/796yzmdc
+// Create the canvas
 const canvas = document.getElementById('canvas');
 (function createCanvas() {
   const ctx = canvas.getContext('2d');
@@ -12,7 +12,7 @@ const canvas = document.getElementById('canvas');
   Fill Background Color - set here instead of CSS so that downloaded 
   image includes bg color, important for if anything has been erased
   */
-  ctx.fillStyle = '#e5e5e3';
+  ctx.fillStyle = '#f2f0f0';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // Drawing
@@ -64,7 +64,7 @@ colorButtons.forEach((btn) => {
   btn.addEventListener('click', changePenColor);
 });
 
-// Change pen size : https://tinyurl.com/2en76hnv
+// Change pen size
 const penSize = document.getElementById('pen-size');
 const dotSize = document.querySelector('.dot-size');
 
@@ -84,12 +84,11 @@ penSize.addEventListener('input', setPenSize);
 
 // Shake animation
 let shake = gsap.to('.etchasketch', {
-  rotate: 0.5,
   x: 15,
   yoyo: true,
   duration: 0.05,
-  repeat: 8,
-  ease: 'back',
+  repeat: 10,
+  ease: 'bounce',
   paused: true, //prevents animation from running on page load
 });
 
@@ -110,10 +109,10 @@ window.addEventListener('resize', () => {
 });
 
 // Download image of drawing
-const download = document.getElementById('download');
-download.addEventListener('click', () => {
-  download.href = canvas.toDataURL();
-  download.download = 'etch-a-sketch.png';
+const downloadBtn = document.getElementById('download');
+downloadBtn.addEventListener('click', () => {
+  downloadBtn.href = canvas.toDataURL();
+  downloadBtn.download = 'etch-a-sketch.png';
 });
 
 // Touch events

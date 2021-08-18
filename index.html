@@ -24,7 +24,7 @@
   <main class="container">
     <div class="etchasketch">
       <img src="./img/etch-logo.png" alt="logo" class="logo" />
-      <button class="knob knob-left" id="reset" aria-label="Erase the board and start over.">
+      <button class="knob knob-left" title="Clear Board" id="reset" aria-label="Erase the board and start over.">
         <i class="fas fa-redo-alt"></i>
       </button>
       <div class="range-container">
@@ -32,12 +32,13 @@
           <span class="dot-size">
           </span>
         </label>
-        <input type="range" id="pen-size" name="pen-size" min="3" max="27" value="15"
+        <input type="range" title="Change Pen Size" id="pen-size" name="pen-size" min="3" max="27" value="15"
           aria-label="Slide to change pen tip diameter in pixels." />
       </div>
-      <button class="knob knob-right" id="download" aria-label="Download an image of your drawing.">
-        <i class="fas fa-file-download"></i>
-      </button>
+      <!-- Must be a tag, not button, for the download to work  -->
+      <a href="#" class="knob knob-right" aria-label="Download an image of your drawing." title="Download Image"
+        id="download"><i class="fas fa-file-download"></i></a>
+
       <canvas id="canvas" class="canvas"></canvas>
     </div>
 
@@ -75,7 +76,7 @@
         <label for="orange" class="color-button orange"></label>
       </div>
       <div>
-        <input type="radio" name="colors" id="erase" value="#e5e5e3" aria-label="Eraser" />
+        <input type="radio" name="colors" id="erase" value="#f2f0f0" aria-label="Eraser" />
         <label for="erase" class="color-button erase"><i class="fas fa-eraser"></i></label>
       </div>
     </div>
