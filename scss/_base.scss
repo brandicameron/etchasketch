@@ -11,6 +11,9 @@ $etch-a-sketch-red: #dc1212;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
   color: #fff;
@@ -25,11 +28,4 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.container {
-  width: 100vw;
-  height: 100vh;
-  @extend .flex;
-  flex-direction: column;
 }

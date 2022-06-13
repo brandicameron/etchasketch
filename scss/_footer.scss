@@ -1,12 +1,12 @@
 footer {
   @extend .flex;
   flex-direction: column;
-  justify-content: space-around;
+  text-align: center;
   width: 100vw;
   height: 225px;
-  padding: 50px;
   background-color: $etch-a-sketch-red;
   line-height: 150%;
+  margin-bottom: auto;
 }
 
 .contact-buttons {

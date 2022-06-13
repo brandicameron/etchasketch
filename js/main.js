@@ -70,9 +70,7 @@ const dotSize = document.querySelector('.dot-size');
 
 function setPenSize() {
   const rangeThumb = document.getElementById('rangeValue');
-  const newValue = parseInt(
-    ((penSize.value - penSize.min) * 100) / (penSize.max - penSize.min)
-  );
+  const newValue = parseInt(((penSize.value - penSize.min) * 100) / (penSize.max - penSize.min));
 
   dotSize.style.width = penSize.value + 'px';
   dotSize.style.height = penSize.value + 'px';
@@ -158,32 +156,3 @@ function getTouchPos(canvasDom, touchEvent) {
     y: touchEvent.touches[0].clientY - rect.top,
   };
 }
-
-// Prevent page from scrolling/jumping when drawing on canvas
-document.body.addEventListener(
-  'touchstart',
-  function (e) {
-    if (e.target === canvas) {
-      document.body.style.overflow = 'hidden';
-    }
-  },
-  false
-);
-document.body.addEventListener(
-  'touchend',
-  function (e) {
-    if (e.target === canvas) {
-      document.body.style.overflow = 'hidden';
-    }
-  },
-  false
-);
-document.body.addEventListener(
-  'touchmove',
-  function (e) {
-    if (e.target === canvas) {
-      document.body.style.overflow = 'hidden';
-    }
-  },
-  false
-);
