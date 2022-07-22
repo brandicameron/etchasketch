@@ -67,3 +67,10 @@ label[for='erase'] {
   font-size: 1.5rem;
   line-height: 40px;
 }
+
+@media screen and (max-width: 350px) {
+  .etchasketch {
+    height: 50vh;
+    margin-top: -2rem;
+  }
+}
